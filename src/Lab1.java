@@ -44,7 +44,7 @@ public class Lab1 {
 			newDNA +="T";
 			
 		}
-		else if(random > 60 && random < 101) {
+		else if(random > 60 && random < 100) {
 			newDNA +="G";
 	
 		//System.out.println("Test");
