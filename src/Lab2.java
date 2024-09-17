@@ -36,6 +36,6 @@ public class Lab2 {
 			break;
 		}
 		x++;
-		
+		//STILL NEED TO IMPLEMENT TIMER
 	}
 }}
