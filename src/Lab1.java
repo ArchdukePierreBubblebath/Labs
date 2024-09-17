@@ -27,7 +27,7 @@ public class Lab1 {
 		System.out.println(aaacount);
 		int j = 0;
 		aaacount = 0;
-		while(j<1001) {
+		while(j<1000) {
 		String newDNA = "";
 		int y = 0;
 		while(y<3) {
