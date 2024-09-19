@@ -18,24 +18,29 @@ public class Lab2 {
 		"serine","threonine","tryptophan", 
 		"tyrosine", "valine"};
 	
+	long start = System.currentTimeMillis();
+    long end = 30000;
+	
 	int x = 0;
 	String aa = "";
 	while(x<30) {
+		long currentTime = System.currentTimeMillis();
+        if (currentTime - start >= end) {
+            System.out.println("Time's up!");
+            break;}
 		int randomIndex = (int)(Math.random() * 20);
 		aa += FULL_NAMES[randomIndex];
 		System.out.println(aa);
 		aa = "";
 		String a = Short_names[randomIndex];
-		//System.out.println(a);
 		String aString = System.console().readLine().toUpperCase();
 		if (aString.equals(a)) {
 			System.out.println("Correct!");
 			}
 		else {
-			System.out.println("You suck!");
+			System.out.println("You bring shame upon your entire bloodline.");
 			break;
 		}
 		x++;
-		//STILL NEED TO IMPLEMENT TIMER
 	}
 }}
