@@ -30,8 +30,9 @@ public class FastaSequence {
         		
         	}
         	else if(header != null) {
-        		System.out.println(header);
-        		System.out.println(seq);
+        		//System.out.println(header);
+        		fastaList.add(new FastaSequence(header, seq));
+        		//System.out.println(seq);
         		header = line;
         		seq = "";
         	}
@@ -45,8 +46,9 @@ public class FastaSequence {
       
         
     }
-    System.out.println(header);
-    System.out.println(seq);
+    //System.out.println(header);
+    //System.out.println(seq);
+    fastaList.add(new FastaSequence(header, seq));
 	return fastaList;}
 	
 	public String getHeader()
@@ -58,7 +60,14 @@ public class FastaSequence {
 	
 	// returns the number of G’s and C’s divided by the length of this sequence
 	public float getGCRatio()
-	{return 0;}
+	{
+		int gc = 0;
+		for(int i = 0;i<seq.length();i++) {
+			if(seq.charAt(i) == 'G' || seq.charAt(i) == 'C') {
+				gc++;
+			}
+		}
+		return (float) gc / seq.length();}
 
 	
 	public static void main(String[] args) throws Exception
@@ -74,7 +83,7 @@ public class FastaSequence {
 	         System.out.println(fs.getGCRatio());
 	      }
 
-	     File myFile = new File("/Users/ansh/git/Labs/src/test.fasta");
+	     //File myFile = new File("/Users/ansh/git/Labs/src/test.fasta");
 
 	     //writeTableSummary( fastaList,  myFile);
 	}
