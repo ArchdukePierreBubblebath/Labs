@@ -1,6 +1,9 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +20,6 @@ public class FastaSequence {
 	{List<FastaSequence> fastaList = new ArrayList<>();
     BufferedReader reader = new BufferedReader(new FileReader(filepath));
     String line;
-    StringBuilder str = new StringBuilder();
     String header = null;
     String seq = "";
     while ((line = reader.readLine()) != null) {
@@ -25,7 +27,7 @@ public class FastaSequence {
         if(line.startsWith(">")) {
         	//System.out.println("Meep");
         	if(header == null) {
-        		header = line;
+        		header = line.substring(2);
         		//System.out.println(line);
         		
         	}
@@ -33,7 +35,7 @@ public class FastaSequence {
         		//System.out.println(header);
         		fastaList.add(new FastaSequence(header, seq));
         		//System.out.println(seq);
-        		header = line;
+        		header = line.substring(2);
         		seq = "";
         	}
  
@@ -49,6 +51,7 @@ public class FastaSequence {
     //System.out.println(header);
     //System.out.println(seq);
     fastaList.add(new FastaSequence(header, seq));
+    reader.close();
 	return fastaList;}
 	
 	public String getHeader()
@@ -68,6 +71,42 @@ public class FastaSequence {
 			}
 		}
 		return (float) gc / seq.length();}
+	public int numA()
+	{
+		int a = 0;
+		for(int i = 0;i<seq.length();i++) {
+			if(seq.charAt(i) == 'A'){
+				a++;
+			}
+		}
+		return a;}
+	public int numG()
+	{
+		int a = 0;
+		for(int i = 0;i<seq.length();i++) {
+			if(seq.charAt(i) == 'G'){
+				a++;
+			}
+		}
+		return a;}
+	public int numC()
+	{
+		int a = 0;
+		for(int i = 0;i<seq.length();i++) {
+			if(seq.charAt(i) == 'C'){
+				a++;
+			}
+		}
+		return a;}
+	public int numT()
+	{
+		int a = 0;
+		for(int i = 0;i<seq.length();i++) {
+			if(seq.charAt(i) == 'T'){
+				a++;
+			}
+		}
+		return a;}
 
 	
 	public static void main(String[] args) throws Exception
@@ -83,9 +122,29 @@ public class FastaSequence {
 	         System.out.println(fs.getGCRatio());
 	      }
 
-	     //File myFile = new File("/Users/ansh/git/Labs/src/test.fasta");
+	     File myFile = new File("/Users/ansh/git/Labs/src/test.txt");
 
-	     //writeTableSummary( fastaList,  myFile);
+	     writeTableSummary( fastaList,  myFile);
+	}
+
+	private static void writeTableSummary(List<FastaSequence> fastaList, File myFile) {
+		try {
+			BufferedWriter f_writer
+			= new BufferedWriter(new FileWriter(myFile));
+			f_writer.write("sequenceID\tnumA\tnumC\tnumG\tnumT\tsequence\n");
+			for( FastaSequence fs : fastaList)
+		     {
+				String[] words = fs.getHeader().split(" ");
+				f_writer.write(words[0] + "\t" + fs.numA() + "\t" + fs.numC()+ "\t" + fs.numG()+ "\t" + fs.numT() + "\t" + fs.getSequence() + "\n");
+		      }
+			f_writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
 
 
